@@ -1,0 +1,20 @@
+.container {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back {
+  display: block;
+  padding: 15px 25px;
+  margin: 0;
+}
+.back:hover {
+  background-color: rgb(245, 245, 245);
+}
+.add {
+  margin-right: 25px;
+}

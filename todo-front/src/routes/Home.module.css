@@ -1,0 +1,9 @@
+.container {
+  position: relative;
+}
+
+.feed {
+  position: absolute;
+  top: 70px;
+  left: 400px;
+}
