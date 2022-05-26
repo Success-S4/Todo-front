@@ -1,0 +1,43 @@
+.container {
+  position: relative;
+  top: 50px;
+  padding: 20px;
+  font-size: 16px;
+}
+
+.goal {
+  margin: 15px 0;
+  border: 0;
+  padding: 10px;
+  border-bottom: 2px solid rgb(96, 209, 85);
+  width: 100%;
+  color: rgb(96, 209, 85);
+  font-weight: 700;
+  font-size: 20px;
+}
+.goal:focus {
+  outline: none;
+}
+.box {
+  padding: 20px 0;
+  border-bottom: 1px solid rgb(234, 234, 234);
+}
+.endDelete {
+  display: flex;
+}
+.endDelete li {
+  width: 100%;
+  background-color: rgb(234, 234, 234);
+  padding: 10px 0;
+  margin-right: 5px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.endDelete li button {
+  background-color: inherit;
+  font-size: 16px;
+  color: red;
+}

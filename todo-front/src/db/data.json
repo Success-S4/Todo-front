@@ -1,0 +1,32 @@
+{
+  "dev": {
+    "category_id": 2,
+    "user": "admin@naver.com",
+    "title": "dev",
+    "view_auth": 1
+  },
+  "과제": {
+    "category_id": 4,
+    "user": "admin@naver.com",
+    "title": "과제",
+    "view_auth": 2
+  },
+  "쇼핑": {
+    "category_id": 5,
+    "user": "admin@naver.com",
+    "title": "쇼핑",
+    "view_auth": 2
+  },
+  "운동": {
+    "category_id": 6,
+    "user": "admin@naver.com",
+    "title": "운동",
+    "view_auth": 2
+  },
+  "개발": {
+    "category_id": 7,
+    "user": "admin@naver.com",
+    "title": "개발",
+    "view_auth": 2
+  }
+}

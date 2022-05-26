@@ -1,0 +1,9 @@
+.contents {
+  position: relative;
+  top: 60px;
+  padding: 20px;
+}
+.contents h3 {
+  font-size: 15px;
+  color: rgb(186, 186, 186);
+}

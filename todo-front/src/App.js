@@ -7,6 +7,7 @@ import Menu from "./routes/Menu";
 import Goal from "./routes/Goal";
 import GlobalStyles from "./GlobalStyles";
 import GoalCRUD from "./routes/GoalCRUD";
+import GoalDetail from "./routes/GoalDetail";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/menu" element={<Menu />}></Route>
         <Route path="/menu/goal" element={<Goal />}></Route>
         <Route path="/menu/goal/goalCRUD" element={<GoalCRUD />}></Route>
+        <Route path="/menu/goal/:id" element={<GoalDetail />}></Route>
       </Routes>
     </Router>
   );

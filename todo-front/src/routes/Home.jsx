@@ -6,8 +6,11 @@ function Home() {
   return (
     <div className={styles.container}>
       <Nav />
-      <div className={styles.feed}>
-        <Feed />
+      <div className={styles.show}>
+        <div className={styles.box}>프로필,달력 (업데이트 예정)</div>
+        <div className={styles.feed}>
+          <Feed />
+        </div>
       </div>
     </div>
   );

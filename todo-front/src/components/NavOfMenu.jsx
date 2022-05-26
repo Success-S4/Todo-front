@@ -1,18 +1,12 @@
 import styles from "./NavOfMenu.module.css";
-import { faChevronLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import BackButton from "./BackButton";
 
-function NavOfMenu({ title }) {
+function NavOfMenu({ title, addOrConfirm }) {
   return (
     <div className={styles.container}>
-      <Link to={`/menu`} className={styles.back}>
-        <FontAwesomeIcon icon={faChevronLeft} />
-      </Link>
+      <BackButton />
       <p>{title}</p>
-      <Link to={`/menu/goal/goalCRUD`}>
-        <FontAwesomeIcon icon={faPlus} className={styles.add} />
-      </Link>
+      <div className={styles.addOrConfirm}>{addOrConfirm}</div>
     </div>
   );
 }

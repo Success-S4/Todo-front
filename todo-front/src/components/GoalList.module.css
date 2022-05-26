@@ -1,0 +1,13 @@
+.goal {
+  padding: 10px;
+  background-color: rgb(245, 245, 245);
+  border-radius: 5px;
+  width: fit-content;
+  margin: 15px 0;
+  cursor: pointer;
+}
+.line {
+  background-color: rgb(245, 245, 245);
+  width: 100vw;
+  height: 1px;
+}
