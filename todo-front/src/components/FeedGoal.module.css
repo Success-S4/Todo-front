@@ -1,3 +1,7 @@
+.container {
+  /* background-color: red; */
+}
+
 .goal {
   padding: 10px;
   background-color: rgb(245, 245, 245);
@@ -22,8 +26,8 @@
   width: 100%;
   border: 0;
   border-bottom: 2px solid black;
-  padding: 10px;
-  font-size: 17px;
+  padding: 10px 7px;
+  font-size: 18px;
   margin-bottom: 15px;
 }
 .goalInput:focus {
@@ -32,4 +36,33 @@
 .goalInput::placeholder {
   color: rgb(209, 209, 209);
   font-weight: 700;
+}
+
+.goalList {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.goalComponent {
+  display: flex;
+  margin: 10px 0;
+  font-size: 18px;
+  align-items: center;
+}
+.goalComponent:first-child {
+  margin-bottom: 0;
+}
+.goalComponent:last-child {
+  margin-top: 0;
+}
+.goalComponent input {
+  transform: scale(1.6);
+  margin-right: 10px;
+}
+
+.submitBox {
+  display: flex;
+}
+.goalCheckBox {
+  margin-top: 15px;
+  transform: scale(1.6);
 }

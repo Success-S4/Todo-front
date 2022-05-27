@@ -3,3 +3,9 @@
   font-weight: 900;
   margin: 25px 0;
 }
+
+.loading {
+  position: relative;
+  top: 200px;
+  left: 30px;
+}

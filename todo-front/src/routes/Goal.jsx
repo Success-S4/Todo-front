@@ -5,15 +5,18 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import GoalList from "../components/GoalList";
+import LoadingSpin from "react-loading-spin";
 
 function Goal() {
   const [toDos, setToDos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getToDos = async () => {
     const json = await (
       await fetch(`http://127.0.0.1:8000/get-category/`)
     ).json();
     setToDos(json.data);
+    setLoading(false);
   };
   useEffect(() => {
     getToDos();
@@ -25,26 +28,34 @@ function Goal() {
 
   return (
     <div className={styles.container}>
-      <NavOfMenu
-        title={`목표`}
-        addOrConfirm={
-          <Link to={`/menu/goal/goalCRUD`}>
-            <FontAwesomeIcon icon={faPlus} className={styles.add} />
-          </Link>
-        }
-      />
-      <div className={styles.contents}>
-        <h3>일반</h3>
-        <div>
-          {toDos.map((toDo) => (
-            <GoalList
-              key={toDo.category_id}
-              title={toDo.title}
-              id={toDo.category_id}
-            />
-          ))}
+      {loading ? (
+        <div className={styles.loading}>
+          <LoadingSpin primaryColor="black" secondaryColor="#fff" />
         </div>
-      </div>
+      ) : (
+        <div>
+          <NavOfMenu
+            title={`목표`}
+            addOrConfirm={
+              <Link to={`/menu/goal/goalCRUD`}>
+                <FontAwesomeIcon icon={faPlus} className={styles.add} />
+              </Link>
+            }
+          />
+          <div className={styles.contents}>
+            <h3>일반</h3>
+            <div>
+              {toDos.map((toDo) => (
+                <GoalList
+                  key={toDo.category_id}
+                  title={toDo.title}
+                  id={toDo.category_id}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
