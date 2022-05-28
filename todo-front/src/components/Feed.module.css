@@ -9,3 +9,8 @@
   top: 200px;
   left: 30px;
 }
+
+.container {
+  overflow: scroll;
+  max-height: 540px;
+}

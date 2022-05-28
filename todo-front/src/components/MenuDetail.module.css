@@ -25,3 +25,11 @@
   font-size: 10px;
   color: rgb(204, 204, 204);
 }
+
+.menuGoals {
+  display: flex;
+  flex-wrap: wrap;
+}
+.menuGoal {
+  /* padding: ; */
+}

@@ -7,6 +7,7 @@ import Goal from "./routes/Goal";
 import GlobalStyles from "./GlobalStyles";
 import GoalCRUD from "./routes/GoalCRUD";
 import GoalDetail from "./routes/GoalDetail";
+import Modal from "react-modal";
 
 function App() {
   return (
@@ -24,5 +25,7 @@ function App() {
     </Router>
   );
 }
+
+Modal.setAppElement("#root");
 
 export default App;

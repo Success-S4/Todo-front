@@ -20,7 +20,7 @@ function Feed() {
   console.log(toDos);
 
   return (
-    <div className={styles.container}>
+    <div>
       {loading ? (
         <div className={styles.loading}>
           <LoadingSpin primaryColor="black" secondaryColor="#fff" />
@@ -28,9 +28,13 @@ function Feed() {
       ) : (
         <div>
           <h1 className={styles.title}>Feed</h1>
-          <div>
+          <div className={styles.container}>
             {toDos.map((toDo) => (
-              <FeedGoal key={toDo.category_id} title={toDo.title} />
+              <FeedGoal
+                key={toDo.category_id}
+                title={toDo.title}
+                id={toDo.category_id}
+              />
             ))}
           </div>
         </div>

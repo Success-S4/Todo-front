@@ -1,5 +1,5 @@
 .container {
-  /* background-color: red; */
+  overflow: scroll;
 }
 
 .goal {
@@ -40,6 +40,10 @@
 
 .goalList {
   display: flex;
+  flex-direction: column;
+}
+.goalListNew {
+  display: flex;
   flex-direction: column-reverse;
 }
 .goalComponent {
@@ -47,12 +51,6 @@
   margin: 10px 0;
   font-size: 18px;
   align-items: center;
-}
-.goalComponent:first-child {
-  margin-bottom: 0;
-}
-.goalComponent:last-child {
-  margin-top: 0;
 }
 .goalComponent input {
   transform: scale(1.6);
