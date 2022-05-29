@@ -1,7 +1,22 @@
-import styles from "./Feed.module.css";
 import { useState, useEffect } from "react";
 import FeedGoal from "./FeedGoal";
 import LoadingSpin from "react-loading-spin";
+import styled from "styled-components";
+
+const Loading = styled.div`
+  position: relative;
+  top: 200px;
+  left: 30px;
+`;
+const Title = styled.h1`
+  font-size: 40px;
+  font-weight: 900;
+  margin: 25px 0;
+`;
+const Container = styled.div`
+  overflow: scroll;
+  max-height: 540px;
+`;
 
 function Feed() {
   const [toDos, setToDos] = useState([]);
@@ -22,13 +37,14 @@ function Feed() {
   return (
     <div>
       {loading ? (
-        <div className={styles.loading}>
+        <Loading>
           <LoadingSpin primaryColor="black" secondaryColor="#fff" />
-        </div>
+        </Loading>
       ) : (
         <div>
-          <h1 className={styles.title}>Feed</h1>
-          <div className={styles.container}>
+          <Title>Feed</Title>
+
+          <Container>
             {toDos.map((toDo) => (
               <FeedGoal
                 key={toDo.category_id}
@@ -36,7 +52,7 @@ function Feed() {
                 id={toDo.category_id}
               />
             ))}
-          </div>
+          </Container>
         </div>
       )}
     </div>

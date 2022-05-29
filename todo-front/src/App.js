@@ -7,7 +7,7 @@ import Goal from "./routes/Goal";
 import GlobalStyles from "./GlobalStyles";
 import GoalCRUD from "./routes/GoalCRUD";
 import GoalDetail from "./routes/GoalDetail";
-import Modal from "react-modal";
+import TodoDetail from "./routes/TodoDetail";
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/todo/:id" element={<TodoDetail />}></Route>
         <Route path="/find" element={<Find />}></Route>
         <Route path="/alert" element={<Alert />}></Route>
         <Route path="/menu" element={<MenuDetail />}></Route>
@@ -25,7 +26,5 @@ function App() {
     </Router>
   );
 }
-
-Modal.setAppElement("#root");
 
 export default App;

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import NavOfMenu from "../components/NavOfMenu";
 import styles from "./GoalCRUD.module.css";
-import dummy from "../db/data.json";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import SettingsColors from "../components/SettingsColors";
 
@@ -30,7 +28,7 @@ function GoalCRUD() {
 
   return (
     <div>
-      <NavOfMenu title={`목표`} />
+      <NavOfMenu title={`목표`} backTo={`/menu/goal`} />
       <div className={styles.contents}>
         <form onSubmit={onSubmit}>
           <input

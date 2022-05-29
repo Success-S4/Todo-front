@@ -16,3 +16,15 @@
   text-align: center;
   margin-right: 15px;
 }
+
+.back {
+  display: block;
+  padding: 15px 25px;
+  margin: 0;
+  background-color: #fff;
+  border: 0;
+  cursor: pointer;
+}
+.back:hover {
+  background-color: rgb(245, 245, 245);
+}

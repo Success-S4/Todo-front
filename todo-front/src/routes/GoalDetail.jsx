@@ -14,6 +14,7 @@ function GoalDetail() {
     ).json();
     setToDo(json.data);
   };
+
   useEffect(() => {
     getToDo();
   }, []);
@@ -30,7 +31,7 @@ function GoalDetail() {
 
   return (
     <div>
-      <NavOfMenu title={`목표`} />
+      <NavOfMenu title={`목표`} backTo={`/menu/goal`} />
       <div className={styles.container}>
         {/* url 넘어오면 수정! */}
         <input type="text" value={toDo.title} className={styles.goal} />

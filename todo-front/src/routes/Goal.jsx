@@ -1,11 +1,29 @@
 import { useState, useEffect } from "react";
 import NavOfMenu from "../components/NavOfMenu";
-import styles from "./Goal.module.css";
+import styled from "styled-components";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import GoalList from "../components/GoalList";
 import LoadingSpin from "react-loading-spin";
+
+const Container = styled.div`
+  /* overflow: scroll; */
+`;
+const Loading = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+`;
+const Contents = styled.div`
+  position: relative;
+  top: 60px;
+  padding: 20px;
+  h3 {
+    font-size: 15px;
+    color: rgb(186, 186, 186);
+  }
+`;
 
 function Goal() {
   const [toDos, setToDos] = useState([]);
@@ -27,22 +45,23 @@ function Goal() {
   // 명준이가 url을 배열 형태로 주면 setToDo(json.data)로 설정하고, map 함수로 data.title 이렇게 쓰거나 GoalList 컴포넌트 따로 만들어서 사용
 
   return (
-    <div className={styles.container}>
+    <Container>
       {loading ? (
-        <div className={styles.loading}>
+        <Loading>
           <LoadingSpin primaryColor="black" secondaryColor="#fff" />
-        </div>
+        </Loading>
       ) : (
         <div>
           <NavOfMenu
             title={`목표`}
             addOrConfirm={
               <Link to={`/menu/goal/goalCRUD`}>
-                <FontAwesomeIcon icon={faPlus} className={styles.add} />
+                <FontAwesomeIcon icon={faPlus} />
               </Link>
             }
+            backTo={`/`}
           />
-          <div className={styles.contents}>
+          <Contents>
             <h3>일반</h3>
             <div>
               {toDos.map((toDo) => (
@@ -53,10 +72,10 @@ function Goal() {
                 />
               ))}
             </div>
-          </div>
+          </Contents>
         </div>
       )}
-    </div>
+    </Container>
   );
 }
 
