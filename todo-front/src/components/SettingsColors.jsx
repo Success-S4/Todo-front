@@ -1,14 +1,21 @@
-import styles from "./SettingsColors.module.css";
+import styled from "styled-components";
+
+const Box = styled.div`
+  padding: 20px 0;
+  border-bottom: 1px solid rgb(234, 234, 234);
+  cursor: pointer;
+`;
 
 function SettingsColors() {
   return (
     <div>
-      <div className={styles.box}>
+      <Box>
         <p>공개설정</p>
-      </div>
-      <div className={styles.box}>
+      </Box>
+
+      <Box>
         <p>색상</p>
-      </div>
+      </Box>
     </div>
   );
 }

@@ -86,7 +86,7 @@ function FeedGoal({ title, id }) {
     if (toDo === "") {
       return;
     }
-    setToDos((current) => [toDo, ...current]);
+    // setToDos((current) => [toDo, ...current]);
 
     fetch(`http://127.0.0.1:8000/create-todo/${id}`, {
       method: "POST",
@@ -105,11 +105,14 @@ function FeedGoal({ title, id }) {
     ).json();
     setToDoLs(json.data);
     setLoading(false);
-    console.log(json.data);
   };
+  // useEffect(() => {
+  //   getToDoLs();
+  // }, []);
+
   useEffect(() => {
     getToDoLs();
-  }, []);
+  }, [onSubmit]);
 
   // 명준이한테 get-todo 데이터셋 받으면 아래 map함수 쓴 곳에 key값 추가!
 
@@ -167,14 +170,14 @@ function FeedGoal({ title, id }) {
             ))}
           </GoalList>
 
-          <GoalListNew>
+          {/* <GoalListNew>
             {toDos.map((toDo, index) => (
               <GoalComponent key={index}>
                 <input type="checkbox" value={toDo} />
                 <li>{toDo}</li>
               </GoalComponent>
             ))}
-          </GoalListNew>
+          </GoalListNew> */}
 
           <SubmitBox onSubmit={onSubmit}>
             <GoalCheckBox type="checkbox" />
@@ -197,14 +200,14 @@ function FeedGoal({ title, id }) {
             ))}
           </GoalList>
 
-          <GoalListNew>
+          {/* <GoalListNew>
             {toDos.map((toDo, index) => (
               <GoalComponent key={index}>
                 <input type="checkbox" value={toDo} />
                 <li>{toDo}</li>
               </GoalComponent>
             ))}
-          </GoalListNew>
+          </GoalListNew> */}
         </div>
       )}
       {/* <button onClick={() => setModalIsOpen(true)}>Modal Open</button>

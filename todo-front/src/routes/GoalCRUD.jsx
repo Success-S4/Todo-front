@@ -1,8 +1,40 @@
 import { useState } from "react";
 import NavOfMenu from "../components/NavOfMenu";
-import styles from "./GoalCRUD.module.css";
 import { useNavigate } from "react-router-dom";
 import SettingsColors from "../components/SettingsColors";
+import styled from "styled-components";
+
+const Contents = styled.div`
+  position: relative;
+  top: 50px;
+  padding: 15px;
+`;
+const Confirm = styled.button`
+  text-decoration: none;
+  background-color: #fff;
+  border: 0;
+  position: absolute;
+  right: 15px;
+  top: -40px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+`;
+const GoalInput = styled.input`
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid black;
+  padding: 10px;
+  font-size: 17px;
+  margin-bottom: 15px;
+  :focus {
+    outline: none;
+  }
+  ::placeholder {
+    color: rgb(209, 209, 209);
+    font-weight: 700;
+  }
+`;
 
 function GoalCRUD() {
   const [toDo, setToDo] = useState("");
@@ -22,33 +54,26 @@ function GoalCRUD() {
         title: toDo,
         view_auth: "3",
       }),
-    });
+    }).then(navigate(-1));
   };
   let navigate = useNavigate();
 
   return (
     <div>
       <NavOfMenu title={`목표`} backTo={`/menu/goal`} />
-      <div className={styles.contents}>
+      <Contents>
         <form onSubmit={onSubmit}>
-          <input
+          <GoalInput
             type="text"
             placeholder="목표 입력"
             onChange={onChange}
             value={toDo}
-            className={styles.goalInput}
           />
-          <button
-            className={styles.confirm}
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            확인
-          </button>
+
+          <Confirm>확인</Confirm>
         </form>
         <SettingsColors />
-      </div>
+      </Contents>
     </div>
   );
 }
