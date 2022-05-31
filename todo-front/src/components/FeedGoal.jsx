@@ -1,8 +1,10 @@
 import { faBoxOpen, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Modal from "react-modal";
+import ModalContent from "./ModalContent";
 
 const Container = styled.div`
   /* overflow: scroll; */
@@ -27,7 +29,7 @@ const Add = styled(FontAwesomeIcon)`
   border-radius: 50%;
   padding: 3px;
 `;
-const GoalList = styled.ul`
+const GoalList = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -71,24 +73,64 @@ const GoalCheckBox = styled.input`
   margin-top: 15px;
   transform: scale(1.6);
 `;
+const modalStyle = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.20)",
+    zIndex: 10,
+  },
+  content: {
+    display: "flex",
+    justifyContent: "center",
+    background: "#fff",
+    overflow: "auto",
+    top: "40vh",
+    left: "38vw",
+    right: "38vw",
+    bottom: "40vh",
+    WebkitOverflowScrolling: "touch",
+    borderRadius: "14px",
+    outline: "none",
+    zIndex: 10,
+    boxSizing: "content-box",
+  },
+};
+const GoalContent = styled.div`
+  width: 100%;
+  cursor: pointer;
+`;
 
-function FeedGoal({ title, id }) {
+function FeedGoal({ category_title, category_id }) {
   const [toDo, setToDo] = useState("");
-  const [toDos, setToDos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [toDos, setToDos] = useState([]);
+  // const [loading, setLoading] = useState(true);
   const [toDoLs, setToDoLs] = useState([]);
 
   const onChange = (event) => {
     setToDo(event.target.value);
   };
-  const onSubmit = (event) => {
+
+  // getToDoLs
+  const getToDoLs = async () => {
+    const json = await (
+      await fetch(`http://127.0.0.1:8000/get-todo/${category_id}`)
+    ).json();
+    setToDoLs(json.data);
+    // setLoading(false);
+  };
+
+  const onSubmit = async (event) => {
     event.preventDefault();
     if (toDo === "") {
       return;
     }
     // setToDos((current) => [toDo, ...current]);
 
-    fetch(`http://127.0.0.1:8000/create-todo/${id}`, {
+    await fetch(`http://127.0.0.1:8000/create-todo/${category_id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -96,25 +138,12 @@ function FeedGoal({ title, id }) {
       }),
     });
     setToDo("");
+    getToDoLs();
   };
-
-  // Get TodoLs
-  const getToDoLs = async () => {
-    const json = await (
-      await fetch(`http://127.0.0.1:8000/get-todo/${id}`)
-    ).json();
-    setToDoLs(json.data);
-    setLoading(false);
-  };
-  // useEffect(() => {
-  //   getToDoLs();
-  // }, []);
 
   useEffect(() => {
     getToDoLs();
-  }, [onSubmit]);
-
-  // 명준이한테 get-todo 데이터셋 받으면 아래 map함수 쓴 곳에 key값 추가!
+  }, []);
 
   // detecting outside click
   const ref = useRef();
@@ -138,10 +167,9 @@ function FeedGoal({ title, id }) {
     }, [ref, handler]);
   }
 
-  const [state, setState] = useState({
-    isPaneOpen: false,
-    isPaneOpenLeft: false,
-  });
+  // Modal
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalData, setModalData] = useState([]);
 
   return (
     <Container>
@@ -151,7 +179,7 @@ function FeedGoal({ title, id }) {
         }}
       >
         <FontAwesomeIcon icon={faBoxOpen} className=".box" />
-        <p>{title}</p>
+        <p>{category_title}</p>
         <Add icon={faPlus} />
       </Goal>
       {isModalOpen ? (
@@ -160,24 +188,29 @@ function FeedGoal({ title, id }) {
             {toDoLs.map((toDoL) => (
               <GoalComponent key={toDoL.todo_id}>
                 <input type="checkbox" value={toDoL.content} />
-                <Link
-                  to={`/todo/${toDoL.todo_id}`}
-                  onClick={() => setState({ isPaneOpen: true })}
+                {/* <Link to={`/todo/${toDoL.todo_id}`}>{toDoL.content}</Link> */}
+                <GoalContent
+                  onClick={() => {
+                    setModalIsOpen(true);
+                    setModalData(toDoL);
+                    // console.log(toDoL.todo_id);
+                  }}
                 >
-                  <li>{toDoL.content}</li>
-                </Link>
+                  {toDoL.content}
+                </GoalContent>
+                <Modal
+                  isOpen={modalIsOpen}
+                  onRequestClose={() => setModalIsOpen(false)}
+                  style={modalStyle}
+                >
+                  <ModalContent
+                    todo_title={modalData.content}
+                    todo_id={modalData.todo_id}
+                  />
+                </Modal>
               </GoalComponent>
             ))}
           </GoalList>
-
-          {/* <GoalListNew>
-            {toDos.map((toDo, index) => (
-              <GoalComponent key={index}>
-                <input type="checkbox" value={toDo} />
-                <li>{toDo}</li>
-              </GoalComponent>
-            ))}
-          </GoalListNew> */}
 
           <SubmitBox onSubmit={onSubmit}>
             <GoalCheckBox type="checkbox" />
@@ -195,26 +228,31 @@ function FeedGoal({ title, id }) {
             {toDoLs.map((toDoL) => (
               <GoalComponent key={toDoL.todo_id}>
                 <input type="checkbox" value={toDoL.content} />
-                <Link to={`/todo/${toDoL.todo_id}`}>{toDoL.content}</Link>
+                {/* <Link to={`/todo/${toDoL.todo_id}`}>{toDoL.content}</Link> */}
+                <GoalContent
+                  onClick={() => {
+                    setModalIsOpen(true);
+                    setModalData(toDoL);
+                    // console.log(toDoL.todo_id);
+                  }}
+                >
+                  {toDoL.content}
+                </GoalContent>
+                <Modal
+                  isOpen={modalIsOpen}
+                  onRequestClose={() => setModalIsOpen(false)}
+                  style={modalStyle}
+                >
+                  <ModalContent
+                    todo_title={modalData.content}
+                    todo_id={modalData.todo_id}
+                  />
+                </Modal>
               </GoalComponent>
             ))}
           </GoalList>
-
-          {/* <GoalListNew>
-            {toDos.map((toDo, index) => (
-              <GoalComponent key={index}>
-                <input type="checkbox" value={toDo} />
-                <li>{toDo}</li>
-              </GoalComponent>
-            ))}
-          </GoalListNew> */}
         </div>
       )}
-      {/* <button onClick={() => setModalIsOpen(true)}>Modal Open</button>
-      <Modal isOpen={true} onRequestClose={() => setModalIsOpen(false)}>
-        This is Modal content
-        <button onClick={() => setModalIsOpen(false)}>Modal Open</button>
-      </Modal> */}
     </Container>
   );
 }

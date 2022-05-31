@@ -32,7 +32,7 @@ function Feed() {
   useEffect(() => {
     getToDos();
   }, []);
-  console.log(toDos);
+  // console.log(toDos);
 
   return (
     <div>
@@ -48,8 +48,8 @@ function Feed() {
             {toDos.map((toDo) => (
               <FeedGoal
                 key={toDo.category_id}
-                title={toDo.title}
-                id={toDo.category_id}
+                category_title={toDo.title}
+                category_id={toDo.category_id}
               />
             ))}
           </Container>
