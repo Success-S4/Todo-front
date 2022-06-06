@@ -109,11 +109,7 @@ function GoalDetail() {
       <NavOfMenu title={`목표`} backTo={`/menu/goal`} />
       <Container>
         <form onSubmit={onSubmit}>
-          <Goal
-            type="text"
-            onChange={onChange}
-            defaultValue={toDo.title || ""}
-          />
+          <Goal type="text" onChange={onChange} defaultValue={toDo.title} />
           <Confirm>확인</Confirm>
         </form>
         <SettingsColors />

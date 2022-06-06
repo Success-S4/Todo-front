@@ -1,10 +1,22 @@
-// import {useEffect, useState} from "react"
 import styled from "styled-components";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
-const Container = styled.div``;
-const DeleteBtn = styled.button`
+const Container = styled.div`
+  /* display: flex; */
+`;
+const Title = styled.input`
+  text-align: center;
+  padding-bottom: 20px;
+  border: 0;
+  :focus {
+    outline: none;
+  }
+  font-size: 15px;
+  font-weight: 600;
+`;
+const Button = styled.button`
   border: 0;
   border-radius: 50%;
   padding: 0;
@@ -14,19 +26,24 @@ const DeleteBtn = styled.button`
   height: 40px;
   cursor: pointer;
 `;
-const Title = styled.h1`
-  text-align: center;
-  padding-bottom: 20px;
-`;
-const DeleteContainer = styled.div`
+
+const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   p {
     margin-top: 10px;
+    font-size: 13px;
   }
+`;
+const ButtonContainerM = styled(ButtonContainer)`
+  position: absolute;
+  left: 20%;
+`;
+const ButtonContainerD = styled(ButtonContainer)`
+  position: absolute;
+  right: 20%;
 `;
 
 function ModalContent({ todo_title, todo_id }) {
@@ -41,16 +58,51 @@ function ModalContent({ todo_title, todo_id }) {
     });
   };
 
+  // update goal
+  const [toDoU, setToDoU] = useState("");
+  const onChange = (e) => setToDoU(e.target.value);
+  // let navigate = useNavigate();
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (toDoU === "") {
+      return;
+    }
+    fetch(`http://127.0.0.1:8000/update-todo/${todo_id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        content: toDoU,
+        is_completed: 1,
+      }),
+    }).then(() => {
+      window.location.reload();
+    });
+  };
+
   return (
-    <Container>
-      <Title>{todo_title}</Title>
-      <DeleteContainer>
-        <DeleteBtn onClick={deleteF}>
-          <FontAwesomeIcon icon={faTrashCan} />
-        </DeleteBtn>
-        <p>삭제</p>
-      </DeleteContainer>
-    </Container>
+    <div>
+      <form onSubmit={onSubmit}>
+        <Title
+          type="text"
+          defaultValue={todo_title}
+          onChange={onChange}
+        ></Title>
+        <ButtonContainerM>
+          <Button type="submit">
+            <FontAwesomeIcon icon={faPen} />
+          </Button>
+          <p>수정</p>
+        </ButtonContainerM>
+      </form>
+      <Container>
+        <ButtonContainerD>
+          <Button onClick={deleteF}>
+            <FontAwesomeIcon icon={faTrashCan} />
+          </Button>
+          <p>삭제</p>
+        </ButtonContainerD>
+      </Container>
+    </div>
   );
 }
 

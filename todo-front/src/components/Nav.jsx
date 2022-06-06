@@ -1,19 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faBars } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import styles from "./Nav.module.css";
 import { Link } from "react-router-dom";
 import SlidingPane from "react-sliding-pane";
 import { useState } from "react";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import MenuDetail from "../components/MenuDetail";
+import styles from "./Nav.module.css";
 
 function Nav() {
   const [state, setState] = useState({
     isPaneOpen: false,
     isPaneOpenLeft: false,
   });
-
+  <FontAwesomeIcon icon={faHeart} />;
   return (
     <div className={styles.container}>
       <Link to={`/find`} className={styles.icon}>

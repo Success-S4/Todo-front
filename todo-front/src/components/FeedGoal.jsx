@@ -2,7 +2,6 @@ import { faBoxOpen, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import ModalContent from "./ModalContent";
 
@@ -106,8 +105,6 @@ const GoalContent = styled.div`
 
 function FeedGoal({ category_title, category_id }) {
   const [toDo, setToDo] = useState("");
-  // const [toDos, setToDos] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const [toDoLs, setToDoLs] = useState([]);
 
   const onChange = (event) => {
@@ -120,7 +117,6 @@ function FeedGoal({ category_title, category_id }) {
       await fetch(`http://127.0.0.1:8000/get-todo/${category_id}`)
     ).json();
     setToDoLs(json.data);
-    // setLoading(false);
   };
 
   const onSubmit = async (event) => {
@@ -128,7 +124,6 @@ function FeedGoal({ category_title, category_id }) {
     if (toDo === "") {
       return;
     }
-    // setToDos((current) => [toDo, ...current]);
 
     await fetch(`http://127.0.0.1:8000/create-todo/${category_id}`, {
       method: "POST",
@@ -188,7 +183,6 @@ function FeedGoal({ category_title, category_id }) {
             {toDoLs.map((toDoL) => (
               <GoalComponent key={toDoL.todo_id}>
                 <input type="checkbox" value={toDoL.content} />
-                {/* <Link to={`/todo/${toDoL.todo_id}`}>{toDoL.content}</Link> */}
                 <GoalContent
                   onClick={() => {
                     setModalIsOpen(true);
@@ -228,7 +222,6 @@ function FeedGoal({ category_title, category_id }) {
             {toDoLs.map((toDoL) => (
               <GoalComponent key={toDoL.todo_id}>
                 <input type="checkbox" value={toDoL.content} />
-                {/* <Link to={`/todo/${toDoL.todo_id}`}>{toDoL.content}</Link> */}
                 <GoalContent
                   onClick={() => {
                     setModalIsOpen(true);
